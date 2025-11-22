@@ -34,17 +34,6 @@ My journey, spanning diverse disciplines, has profoundly encouraged me to ventur
 
 My research focuses on Applied Deep learning across various domains, with a primary emphasis on computer vision applications in Crop monitoring and Medicine.
 
-## Main Research Directions
-
-### 1. Uncertainty Quantification  
-Developing principled, distribution-free methods to measure, interpret, and control predictive uncertainty, with emphasis on reliability under distribution shift and real-world conditions.
-
-### 2. Explainability and Interpretability  
-Designing model-agnostic and model-aware techniques that provide transparent insights into model decision-making, including occlusion analysis, and concept-level interpretability.
-
-### 3. Self-Supervised Learning  
-Exploring representation learning approaches that leverage unlabeled data to learn robust and semantically meaningful features, and studying their impact on downstream tasks such as classification, anomaly detection, and uncertainty estimation.
-
 
 Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
 
