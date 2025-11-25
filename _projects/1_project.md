@@ -2,7 +2,7 @@
 layout: page
 title: Sweet Pepper segmentation & detection in glass houses
 description: with background image
-img: assets/img/12.jpg
+img: assets/img/test_image_1_1.png    
 importance: 1
 category: work
 related_publications: true
