@@ -2,12 +2,12 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: <a href='#'>Doctoral student @ University of Bonn </a>. Address. Contacts. Motto. Etc.
 
 profile:
   align: right
   image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
+  image_circular: True # crops the image to make it circular
   more_info: >
     <p>555 your office number</p>
     <p>123 your address street</p>
@@ -33,6 +33,17 @@ I'm currently a Doctoral student at the University of Bonn, my focus is on devel
 My journey, spanning diverse disciplines, has profoundly encouraged me to venture into the realms of Deep Learning across various domains. This exploration led me to the field of Medicine, which held a special place in my heart during my MSc. thesis. Eagerness to learn is a constant driving force in my life. I'm always enthusiastic about expanding my horizons, as I believe in the complementary nature of science, where fields, in the end, are connected somehow.
 
 My research focuses on Applied Deep learning across various domains, with a primary emphasis on computer vision applications in Crop monitoring and Medicine.
+
+## Main Research Directions
+
+### 1. Uncertainty Quantification  
+Developing principled, distribution-free methods to measure, interpret, and control predictive uncertainty, with emphasis on reliability under distribution shift and real-world conditions.
+
+### 2. Explainability and Interpretability  
+Designing model-agnostic and model-aware techniques that provide transparent insights into model decision-making, including occlusion analysis, and concept-level interpretability.
+
+### 3. Self-Supervised Learning  
+Exploring representation learning approaches that leverage unlabeled data to learn robust and semantically meaningful features, and studying their impact on downstream tasks such as classification, anomaly detection, and uncertainty estimation.
 
 
 Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
