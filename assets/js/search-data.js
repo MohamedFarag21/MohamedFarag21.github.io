@@ -440,8 +440,8 @@ ninja.data = [{
             },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
           title: 'A simple inline announcement with Markdown emoji! :sparkles: :smile:',
           description: "",
-          section: "News",},{id: "projects-sweet-pepper-segmentation-amp-detection-in-glass-houses",
-          title: 'Sweet Pepper segmentation &amp;amp; detection in glass houses',
+          section: "News",},{id: "projects-sweet-pepper-segmentation-amp-detection-in-glass-houses-2023-present",
+          title: 'Sweet Pepper segmentation &amp;amp; detection in glass houses (2023 - present)',
           description: "with background image",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
