@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Sweet Pepper segmentation & detection in glass houses
+title: Sweet Pepper segmentation & detection in glass houses (2023 - present)
 description: with background image
 img: assets/img/test_image_1_1.png    
 importance: 1
