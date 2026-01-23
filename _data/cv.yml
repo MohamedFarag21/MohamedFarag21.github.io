@@ -1,12 +1,12 @@
 - title: General Information
   type: map
   contents:
-    - name: Full Name
+    - name: Mohamed Mohamed Farag Ibrahim
       value: Albert Einstein
     - name: Date of Birth
-      value: 14th March 1879
+      value: 19.02.1996
     - name: Languages
-      value: English, German
+      value: English, Arabic
 
 - title: Education
   type: time_table
