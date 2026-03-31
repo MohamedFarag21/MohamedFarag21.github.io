@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamed Mohamed Farag Ibrahim — Academic Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF7;
+    --bg-card: #FFFFFF;
+    --text: #1A1A1A;
+    --text-secondary: #5A5A58;
+    --accent: #2D5A3D;
+    --accent-light: #E8F0EB;
+    --accent-warm: #8B6914;
+    --border: #E5E4DF;
+    --border-light: #F0EFEB;
+    --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+    --shadow-hover: 0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.05);
+    --radius: 12px;
+    --serif: 'Crimson Pro', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* --- LAYOUT --- */
+  .page {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* --- SIDEBAR --- */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 48px 36px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+  }
+
+  .profile-photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-light) 0%, #d4ddd7 100%);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: var(--accent);
+    overflow: hidden;
+    border: 3px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--border);
+  }
+
+  .profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .name {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .title {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 28px;
+  }
+
+  .title strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .contact-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .contact-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 13.5px;
+    padding: 6px 0;
+    transition: color 0.2s;
+  }
+
+  .contact-links a:hover { color: var(--accent); }
+
+  .contact-links .icon {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    opacity: 0.55;
+  }
+
+  .contact-links a:hover .icon { opacity: 1; }
+
+  /* Sidebar nav */
+  .sidebar-nav {
+    margin-top: auto;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .sidebar-nav a {
+    display: block;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 7px 0;
+    transition: color 0.2s, padding-left 0.2s;
+  }
+
+  .sidebar-nav a:hover {
+    color: var(--accent);
+    padding-left: 6px;
+  }
+
+  /* Languages in sidebar */
+  .languages {
+    margin-bottom: 28px;
+  }
+
+  .languages h3 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+
+  .lang-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .lang-tag {
+    font-size: 12px;
+    padding: 4px 10px;
+    background: var(--accent-light);
+    color: var(--accent);
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  /* --- MAIN CONTENT --- */
+  .main {
+    padding: 48px 52px 80px;
+    max-width: 780px;
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 56px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .section:nth-child(1) { animation-delay: 0.1s; }
+  .section:nth-child(2) { animation-delay: 0.2s; }
+  .section:nth-child(3) { animation-delay: 0.3s; }
+  .section:nth-child(4) { animation-delay: 0.4s; }
+  .section:nth-child(5) { animation-delay: 0.5s; }
+  .section:nth-child(6) { animation-delay: 0.6s; }
+  .section:nth-child(7) { animation-delay: 0.7s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section h2 {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    margin-bottom: 18px;
+    line-height: 1.3;
+  }
+
+  /* Bio */
+  .bio-text {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--text-secondary);
+  }
+
+  .bio-text a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* Timeline (positions) */
+  .timeline {
+    position: relative;
+    padding-left: 24px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 24px;
+  }
+
+  .timeline-item:last-child { padding-bottom: 0; }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 8px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+
+  .timeline-item:first-child::before {
+    background: var(--accent);
+  }
+
+  .timeline-role {
+    font-weight: 600;
+    font-size: 14.5px;
+    line-height: 1.4;
+  }
+
+  .timeline-org {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+  }
+
+  .timeline-date {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--accent-warm);
+    margin-top: 2px;
+  }
+
+  /* News items */
+  .news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .news-item {
+    padding: 16px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    transition: box-shadow 0.25s, border-color 0.25s;
+  }
+
+  .news-item:hover {
+    box-shadow: var(--shadow);
+    border-color: var(--border);
+  }
+
+  .news-item a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .news-item a:hover { text-decoration: underline; }
+
+  .news-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent-warm);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* Publications */
+  .pub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .pub-item {
+    padding: 20px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    transition: box-shadow 0.25s, border-color 0.25s;
+  }
+
+  .pub-item:hover {
+    box-shadow: var(--shadow-hover);
+    border-color: var(--border);
+  }
+
+  .pub-title {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.45;
+    margin-bottom: 6px;
+  }
+
+  .pub-title a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .pub-title a:hover { color: var(--accent); }
+
+  .pub-authors {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+
+  .pub-authors .highlight { font-weight: 600; color: var(--text); }
+
+  .pub-venue {
+    font-size: 12.5px;
+    font-style: italic;
+    color: var(--accent-warm);
+  }
+
+  .pub-venue .badge {
+    font-style: normal;
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+  }
+
+  /* Teaching */
+  .teaching-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .teaching-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 14px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    transition: box-shadow 0.25s;
+  }
+
+  .teaching-item:hover { box-shadow: var(--shadow); }
+
+  .teaching-name {
+    font-weight: 500;
+    font-size: 14.5px;
+  }
+
+  .teaching-code {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  /* Projects grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .project-card {
+    padding: 20px 22px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--text);
+    transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s;
+    display: block;
+  }
+
+  .project-card:hover {
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .project-name {
+    font-weight: 600;
+    font-size: 14.5px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .project-name .arrow {
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    font-size: 13px;
+    color: var(--accent);
+  }
+
+  .project-card:hover .arrow {
+    opacity: 1;
+    transform: translateX(2px);
+  }
+
+  .project-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  /* Full pub link */
+  .full-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    font-size: 13.5px;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: gap 0.2s;
+  }
+
+  .full-link:hover { gap: 10px; }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 900px) {
+    .page {
+      grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+      position: relative;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 36px 28px;
+    }
+
+    .sidebar-nav { display: none; }
+
+    .main {
+      padding: 36px 28px 60px;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Subtle background pattern */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.015) 1px, transparent 0);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: -1;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="sidebar">
+    <div class="profile-photo">
+      <!-- Replace with: <img src="your-photo.jpg" alt="Your Name"> -->
+      <span>YN</span>
+    </div>
+
+    <h1 class="name">Mohamed Mohamed Farag Ibrahim</h1>
+    <p class="title"><strong>Doctoral Student</strong><br>University of Bonn</p>
+
+    <ul class="contact-links">
+      <li>
+        <a href="mailto:mibrahi2@uni-bonn.de">
+          <span class="icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </span>
+          mibrahi2@uni-bonn.de
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </span>
+          Academic CV (PDF)
+        </a>
+      </li>
+      <li>
+        <a href="https://scholar.google.com/citations?user=XQZEyZ8AAAAJ&hl=en&authuser=1">
+          <span class="icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </span>
+          Google Scholar
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </span>
+          LinkedIn
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          </span>
+          GitHub
+        </a>
+      </li>
+    </ul>
+
+    <div class="languages">
+      <h3>Languages</h3>
+      <div class="lang-list">
+        <span class="lang-tag">English (C2)</span>
+        <span class="lang-tag">Arabic (Native)</span>
+        <span class="lang-tag">Deutsch (Basic)</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#bio">Bio</a>
+      <a href="#positions">Positions</a>
+      <a href="#news">News</a>
+      <a href="#publications">Publications</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#projects">Projects</a>
+    </nav>
+  </aside>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="main">
+
+    <!-- BIO -->
+    <section class="section" id="bio">
+      <span class="section-label">About</span>
+      <h2>Short Bio</h2>
+      <p class="bio-text">
+        Your Name is an Assistant Professor at the University of Somewhere. Their research focuses on 
+        <strong>machine learning</strong> and <strong>remote sensing</strong>, with an emphasis on 
+        representation learning and transfer learning. They obtained a Ph.D. from a prestigious institution 
+        and have conducted research stays at leading labs worldwide. Their work applies modern deep learning 
+        methods to geospatial challenges including agriculture monitoring, environmental mapping, and 
+        sustainable development.
+      </p>
+    </section>
+
+    <!-- POSITIONS -->
+    <section class="section" id="positions">
+      <span class="section-label">Career</span>
+      <h2>Positions</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-role">Doctoral student</div>
+          <div class="timeline-org">University of Bonn</div>
+          <div class="timeline-date">2023 — present</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-role">Assistant Lecturer (MSc in Electronics Engineering)</div>
+          <div class="timeline-org">The German University of Cairo</div>
+          <div class="timeline-date">2022 — 2023</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-role">Teaching Assistant</div>
+          <div class="timeline-org">The German University of Cairo</div>
+          <div class="timeline-date">2018 — 2022</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-role">Enery and Renewable Energy Engineering (BSc)</div>
+          <div class="timeline-org">Ain Shams University</div>
+          <div class="timeline-date">2013 — 2018</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWS -->
+    <section class="section" id="news">
+      <span class="section-label">Updates</span>
+      <h2>News</h2>
+      <div class="news-list">
+        <div class="news-item">
+          <span class="news-date">Feb 2026</span>
+          I am co-organizing the CVPPA workshop this year in ECCV2026!.
+        </div>
+        <div class="news-item">
+          <span class="news-date">Jan 2026</span>
+          Our paper on <a href="#">"Your Paper Title Here"</a> was accepted at a top venue.
+        </div>
+        <div class="news-item">
+          <span class="news-date">Nov 2025</span>
+          Organizing the <a href="#">Workshop on Your Topic</a> at a major conference, coming April 2026.
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section class="section" id="publications">
+      <span class="section-label">Research</span>
+      <h2>Selected Publications</h2>
+      <div class="pub-list">
+        <div class="pub-item">
+          <div class="pub-title"><a href="#">Enhancing decision support in crop production: Analyzing conformal prediction for uncertainty quantification</a></div>
+          <div class="pub-authors"><span class="highlight">Mohamed Farag</span>, Ahmed Emam, Johannes Leonhardt, Ribana Roscher</div>
+          <div class="pub-venue">Computers and Electronics in Agriculture<span class="badge">Journal (IF:8.9)</span></div>
+        </div>
+        <div class="pub-item">
+          <div class="pub-title"><a href="#">Self-Supervised and Unsupervised Multispectral Anomaly Detection for Unknown Substance and Surface Defect Identification
+</a></div>
+          <div class="pub-authors">Cansu Beyaz, <span class="highlight">Mohamed Farag</span>, Peer Schütt, Tobias Hecking, Jonas Grzesiak, Christoph Geiß, Ribana Roscher </div>
+          <div class="pub-venue">Proceedings of the 7th Northern Lights Deep Learning Conference (NLDL), PMLR 307:27-38, 2026</div>
+        </div>
+        <div class="pub-item">
+          <div class="pub-title"><a href="#">Spherical Harmonics for Geographic Location Encoding</a></div>
+          <div class="pub-authors"><span class="highlight">Your Name</span>, Co-Author One, Co-Author Two</div>
+          <div class="pub-venue">ICLR 2024 <span class="badge">Spotlight — top 5%</span></div>
+        </div>
+        <div class="pub-item">
+          <div class="pub-title"><a href="#">Large-Scale Detection of Marine Debris with Remote Sensing</a></div>
+          <div class="pub-authors"><span class="highlight">Your Name</span>, Co-Author One, Co-Author Two</div>
+          <div class="pub-venue">Cell iScience, 26(12), 2023</div>
+        </div>
+      </div>
+      <a href="#" class="full-link">View all publications on Google Scholar →</a>
+    </section>
+
+    <!-- TEACHING -->
+    <section class="section" id="teaching">
+      <span class="section-label">Teaching</span>
+      <h2>Courses</h2>
+      <div class="teaching-list">
+        <div class="teaching-item">
+          <span class="teaching-name">Circuits (I&II)</span>
+          <span class="teaching-code">GRS-32306</span>
+        </div>
+        <div class="teaching-item">
+          <span class="teaching-name">Power Electronics</span>
+          <span class="teaching-code">FTE-35306</span>
+        </div>
+        <div class="teaching-item">
+          <span class="teaching-name">Explaniable Machine Learning</span>
+          <span class="teaching-code">GRS-34806</span>
+        </div>
+        <div class="teaching-item">
+          <span class="teaching-name">Phenotyping</span>
+          <span class="teaching-code">GRS-34806</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
+      <span class="section-label">Software</span>
+      <h2>Apps &amp; Projects</h2>
+      <div class="projects-grid">
+        <a href="#" class="project-card">
+          <div class="project-name">Project Alpha <span class="arrow">↗</span></div>
+          <div class="project-desc">A pre-trained location encoder for expressing geographic locations as vectors.</div>
+        </a>
+        <a href="#" class="project-card">
+          <div class="project-name">LocationEncoders <span class="arrow">↗</span></div>
+          <div class="project-desc">A comparative study of location encoders using spherical harmonic basis functions.</div>
+        </a>
+        <a href="#" class="project-card">
+          <div class="project-name">BenchmarkCrops <span class="arrow">↗</span></div>
+          <div class="project-desc">A benchmark dataset for crop type mapping from satellite time series.</div>
+        </a>
+        <a href="#" class="project-card">
+          <div class="project-name">Interactive Explorer <span class="arrow">↗</span></div>
+          <div class="project-desc">An interactive app to compare the performance of different remote sensing detectors.</div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+</body>
+</html>
