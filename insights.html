@@ -367,8 +367,10 @@
         This animation visualizes a <strong>multi-scale steering field</strong> over a greenhouse crop canopy sequence.
         The colored arrows represent directional flow vectors at multiple spatial scales — capturing both
         fine-grained local patterns and broader structural navigation cues across the plant canopy.
-        Arrow colors encode the scale level and direction magnitude, revealing how the model attends
-        to different spatial hierarchies when processing agricultural imagery.
+        We construct a per-pixel entropy map from a single forward pass of the pepper-LoRA model 
+        on tomato 🍅 images, smooth it at multiple spatial scales (σ ∈ {20, 60, 150} px) via Gaussian
+        filtering, and sum the resulting spatial gradients — normalised per scale — to produce a 
+        dense vector field that points toward regions of high model uncertainty.
       </p>
       <div class="insight-meta">
         <div class="insight-meta-item">
