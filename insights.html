@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insights — Mohamed Farag</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF7;
+    --bg-card: #FFFFFF;
+    --text: #1A1A1A;
+    --text-secondary: #5A5A58;
+    --accent: #2D5A3D;
+    --accent-light: #E8F0EB;
+    --accent-warm: #8B6914;
+    --accent-warm-light: #FDF6E3;
+    --border: #E5E4DF;
+    --border-light: #F0EFEB;
+    --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+    --shadow-hover: 0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.05);
+    --radius: 12px;
+    --serif: 'Crimson Pro', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.015) 1px, transparent 0);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* --- TOPBAR --- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,250,247,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-light);
+    padding: 0 48px;
+  }
+
+  .topbar-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .topbar-photo {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--border);
+  }
+
+  .topbar-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+  .topbar-name {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .topbar-name:hover { color: var(--accent); }
+
+  .topbar-nav { display: flex; gap: 8px; }
+
+  .topbar-nav a {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+
+  .topbar-nav a:hover { color: var(--accent); background: var(--accent-light); }
+  .topbar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+
+  /* --- PAGE CONTENT --- */
+  .page-content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 48px 80px;
+  }
+
+  .page-header {
+    margin-bottom: 48px;
+  }
+
+  .page-header h1 {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+
+  .page-header p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  /* --- INSIGHT CARD --- */
+  .insight-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 40px;
+    transition: box-shadow 0.3s, border-color 0.3s;
+  }
+
+  .insight-card:hover {
+    box-shadow: var(--shadow-hover);
+    border-color: var(--border);
+  }
+
+  .insight-media {
+    position: relative;
+    width: 100%;
+    background: #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+  }
+
+  .insight-media img {
+    width: 100%;
+    height: auto;
+    display: block;
+    image-rendering: auto;
+  }
+
+  /* Loading state */
+  .insight-media .loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #0a0a0a;
+    color: #999;
+    font-size: 13px;
+    transition: opacity 0.4s;
+    z-index: 2;
+  }
+
+  .insight-media .loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .spinner {
+    width: 28px;
+    height: 28px;
+    border: 2.5px solid rgba(255,255,255,0.1);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .insight-body {
+    padding: 28px 32px;
+  }
+
+  .insight-tag {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  .tag-visualization { background: #EDE9FE; color: #6D28D9; }
+  .tag-method { background: var(--accent-light); color: var(--accent); }
+  .tag-result { background: var(--accent-warm-light); color: var(--accent-warm); }
+
+  .insight-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+
+  .insight-description {
+    font-size: 14.5px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  .insight-description strong { color: var(--text); font-weight: 500; }
+
+  .insight-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-light);
+    font-size: 12.5px;
+    color: var(--text-secondary);
+  }
+
+  .insight-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .insight-meta-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+
+  .insight-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .insight-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    background: var(--bg);
+  }
+
+  .insight-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+
+  .insight-link svg { width: 13px; height: 13px; }
+
+  .insight-link.primary {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .insight-link.primary:hover { background: #245030; }
+
+  /* --- EMPTY STATE / COMING SOON --- */
+  .more-coming {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  .more-coming .dots {
+    font-size: 24px;
+    letter-spacing: 6px;
+    color: var(--border);
+    margin-bottom: 8px;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 700px) {
+    .topbar { padding: 0 20px; }
+    .page-content { padding: 32px 20px 60px; }
+    .insight-body { padding: 20px; }
+    .topbar-nav a { padding: 6px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== TOP NAVIGATION ====== -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <div class="topbar-photo"><img src="profile.jpg" alt="Mohamed Farag"></div>
+      <a href="index.html" class="topbar-name">Mohamed Farag</a>
+    </div>
+    <nav class="topbar-nav">
+      <a href="index.html">Home</a>
+      <a href="publications.html">Publications</a>
+      <a href="insights.html" class="active">Insights</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ====== PAGE CONTENT ====== -->
+<div class="page-content">
+
+  <div class="page-header">
+    <h1>Research Insights</h1>
+    <p>
+      Visual explorations and animations from my research — interactive visualizations,
+      model behaviors, and experimental results that bring the work to life.
+    </p>
+  </div>
+
+  <!-- ====== INSIGHT 1: Multi-Scale Steering Field ====== -->
+  <div class="insight-card">
+    <div class="insight-media">
+      <div class="loader" id="loader1">
+        <div class="spinner"></div>
+        <span>Loading visualization…</span>
+      </div>
+      <video
+        src="multiscale_steering.mp4"
+        autoplay
+        loop
+        muted
+        playsinline
+        id="vid1"
+        style="width:100%; height:auto; display:block; opacity:0; transition:opacity 0.5s;"
+      ></video>
+    </div>
+    <div class="insight-body">
+      <span class="insight-tag tag-visualization">Visualization</span>
+      <h2 class="insight-title">Multi-Scale Steering Field Navigation</h2>
+      <p class="insight-description">
+        This animation visualizes a <strong>multi-scale steering field</strong> over a greenhouse crop canopy sequence.
+        The colored arrows represent directional flow vectors at multiple spatial scales — capturing both
+        fine-grained local patterns and broader structural navigation cues across the plant canopy.
+        Arrow colors encode the scale level and direction magnitude, revealing how the model attends
+        to different spatial hierarchies when processing agricultural imagery.
+      </p>
+      <div class="insight-meta">
+        <div class="insight-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg>
+          63 frames
+        </div>
+        <div class="insight-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+          Multi-scale arrows
+        </div>
+        <div class="insight-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          Greenhouse canopy
+        </div>
+      </div>
+      <div class="insight-links">
+        <a href="#" class="insight-link primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Related Paper
+        </a>
+        <a href="#" class="insight-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          Code
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== MORE COMING ====== -->
+  <div class="more-coming">
+    <div class="dots">···</div>
+    More research insights coming soon.
+  </div>
+
+</div>
+
+<!-- ====== LOADING SCRIPT ====== -->
+<script>
+  document.querySelectorAll('.insight-media video').forEach(vid => {
+    const loader = vid.parentElement.querySelector('.loader');
+    function reveal() {
+      vid.style.opacity = '1';
+      if (loader) loader.classList.add('hidden');
+    }
+    vid.addEventListener('canplaythrough', reveal);
+    vid.addEventListener('playing', reveal);
+    vid.addEventListener('error', () => {
+      if (loader) loader.innerHTML = '<span style="color:#999">Failed to load media</span>';
+    });
+    if (vid.readyState >= 4) reveal();
+  });
+</script>
+
+</body>
+</html>
