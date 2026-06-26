@@ -137,6 +137,34 @@
 
   .sidebar-nav a:hover { color: var(--accent); padding-left: 6px; }
 
+  /* Research Directions */
+  .research-directions { margin-bottom: 28px; }
+
+  .research-directions h3 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+
+  .rd-list { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .rd-tag {
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+    border: 1px solid transparent;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .rd-tag:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+
+  .rd-ssl { background: #EDE9FE; color: #6D28D9; border-color: #DDD6FE; }
+  .rd-uq  { background: #DBEAFE; color: #1E40AF; border-color: #BFDBFE; }
+  .rd-xai { background: #FEF3C7; color: #92400E; border-color: #FDE68A; }
+
   .languages { margin-bottom: 28px; }
 
   .languages h3 {
@@ -524,6 +552,15 @@
         </a>
       </li>
     </ul>
+
+    <div class="research-directions">
+      <h3>Research Directions</h3>
+      <div class="rd-list">
+        <span class="rd-tag rd-ssl">Self-Supervised Learning</span>
+        <span class="rd-tag rd-uq">Uncertainty Quantification</span>
+        <span class="rd-tag rd-xai">Explainable ML</span>
+      </div>
+    </div>
 
     <div class="languages">
       <h3>Languages</h3>
