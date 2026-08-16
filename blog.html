@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Mohamed Farag</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF7;
+    --bg-card: #FFFFFF;
+    --text: #1A1A1A;
+    --text-secondary: #5A5A58;
+    --accent: #2D5A3D;
+    --accent-light: #E8F0EB;
+    --accent-warm: #8B6914;
+    --accent-warm-light: #FDF6E3;
+    --border: #E5E4DF;
+    --border-light: #F0EFEB;
+    --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+    --shadow-hover: 0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.05);
+    --radius: 12px;
+    --serif: 'Crimson Pro', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.015) 1px, transparent 0);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* --- TOPBAR --- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,250,247,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-light);
+    padding: 0 48px;
+  }
+
+  .topbar-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .topbar-photo {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--border);
+  }
+
+  .topbar-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+  .topbar-name {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .topbar-name:hover { color: var(--accent); }
+
+  .topbar-nav { display: flex; gap: 8px; }
+
+  .topbar-nav a {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+
+  .topbar-nav a:hover { color: var(--accent); background: var(--accent-light); }
+  .topbar-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+
+  /* --- PAGE CONTENT --- */
+  .page-content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 48px 80px;
+  }
+
+  .page-header {
+    margin-bottom: 28px;
+  }
+
+  .page-header h1 {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+
+  .page-header p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  /* --- DISCLAIMER --- */
+  .disclaimer {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: var(--accent-warm-light);
+    border: 1px solid #F0E4B8;
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 44px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #6B5210;
+  }
+
+  .disclaimer svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    stroke: var(--accent-warm);
+  }
+
+  .disclaimer strong { color: #4A3900; font-weight: 600; }
+
+  /* --- POST CARD --- */
+  .post-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 32px 36px;
+    margin-bottom: 28px;
+    transition: box-shadow 0.3s, border-color 0.3s;
+  }
+
+  .post-card:hover {
+    box-shadow: var(--shadow-hover);
+    border-color: var(--border);
+  }
+
+  .post-date {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent-warm);
+    margin-bottom: 10px;
+  }
+
+  .post-title {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 14px;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .post-tag {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  .post-body {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--text-secondary);
+  }
+
+  .post-body p { margin-bottom: 14px; }
+  .post-body p:last-child { margin-bottom: 0; }
+  .post-body strong { color: var(--text); font-weight: 500; }
+
+  /* --- EMPTY STATE / COMING SOON --- */
+  .more-coming {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  .more-coming .dots {
+    font-size: 24px;
+    letter-spacing: 6px;
+    color: var(--border);
+    margin-bottom: 8px;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 700px) {
+    .topbar { padding: 0 20px; }
+    .page-content { padding: 32px 20px 60px; }
+    .post-card { padding: 24px; }
+    .topbar-nav a { padding: 6px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== TOP NAVIGATION ====== -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <div class="topbar-photo"><img src="profile.jpg" alt="Mohamed Farag"></div>
+      <a href="index.html" class="topbar-name">Mohamed Farag</a>
+    </div>
+    <nav class="topbar-nav">
+      <a href="index.html">Home</a>
+      <a href="publications.html">Publications</a>
+      <a href="insights.html">Insights</a>
+      <a href="blog.html" class="active">Blog</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ====== PAGE CONTENT ====== -->
+<div class="page-content">
+
+  <div class="page-header">
+    <h1>Blog</h1>
+    <p>
+      Notes, opinions, and things I'm thinking about — on research, academia, and
+      whatever else is on my mind. Written informally, in my own time.
+    </p>
+  </div>
+
+  <!-- ====== DISCLAIMER ====== -->
+  <div class="disclaimer">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <div>
+      <strong>These are my own personal thoughts and opinions.</strong>
+      They do not represent the views of the University of Bonn, AID4Crops, or any
+      other institution I am affiliated with. I write and share this content in a
+      personal capacity, and I am solely responsible for it.
+    </div>
+  </div>
+
+  <!-- ====== POSTS ====== -->
+  <!--
+    To add a new post, copy a <div class="post-card">...</div> block below,
+    update the date, title, tags, and body text.
+  -->
+
+  <div class="post-card">
+    <div class="post-date">16 August 2026</div>
+    <h2 class="post-title">Welcome to my blog</h2>
+    <div class="post-tags">
+      <span class="post-tag">Meta</span>
+    </div>
+    <div class="post-body">
+      <p>
+        This is where I'll be jotting down thoughts that don't quite fit into a paper
+        or a project page — ideas I'm chewing on, opinions about research and academia,
+        and the occasional tangent. As the disclaimer above says, everything here is
+        personal and I'm the only one responsible for it.
+      </p>
+      <p>
+        More posts coming as I have things worth writing about.
+      </p>
+    </div>
+  </div>
+
+  <!-- ====== MORE COMING ====== -->
+  <div class="more-coming">
+    <div class="dots">···</div>
+    More posts coming soon.
+  </div>
+
+</div>
+
+</body>
+</html>
