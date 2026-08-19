@@ -208,6 +208,41 @@
     color: var(--accent);
   }
 
+  .tag-books      { background: #EDE9FE; color: #6D28D9; }
+  .tag-series     { background: #DBEAFE; color: #1E40AF; }
+  .tag-technical  { background: var(--accent-light); color: var(--accent); }
+  .tag-adventure  { background: var(--accent-warm-light); color: var(--accent-warm); }
+
+  /* --- TAG FILTER --- */
+  .tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .filter-btn {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .filter-btn.active {
+    background: var(--text);
+    border-color: var(--text);
+    color: white;
+  }
+
   .post-body {
     font-size: 15px;
     line-height: 1.85;
@@ -282,17 +317,31 @@
     </div>
   </div>
 
+  <!-- ====== TAG FILTER ====== -->
+  <!-- To add a new tag category: add a button here with a matching data-tag,
+       and a .tag-<name> color rule in the CSS above (tag-books, tag-series,
+       tag-technical, tag-adventure). -->
+  <div class="tag-filter" id="tagFilter">
+    <button class="filter-btn active" data-tag="all">All</button>
+    <button class="filter-btn" data-tag="books">Books</button>
+    <button class="filter-btn" data-tag="series">Series</button>
+    <button class="filter-btn" data-tag="technical">Technical</button>
+    <button class="filter-btn" data-tag="adventure">Adventure</button>
+  </div>
+
   <!-- ====== POSTS ====== -->
   <!--
-    To add a new post, copy a <div class="post-card">...</div> block below,
-    update the date, title, tags, and body text.
+    To add a new post, copy a <div class="post-card">...</div> block below.
+    Set data-tags to a space-separated list of the post's tag(s) (e.g.
+    "books technical"), and give each <span class="post-tag tag-X"> a
+    matching tag-X color class so it stays consistent with the filter bar.
   -->
 
-  <div class="post-card">
+  <div class="post-card" data-tags="technical">
     <div class="post-date">16 August 2026</div>
     <h2 class="post-title">Welcome to my blog</h2>
     <div class="post-tags">
-      <span class="post-tag">Meta</span>
+      <span class="post-tag tag-technical">Technical</span>
     </div>
     <div class="post-body">
       <p>
@@ -314,6 +363,24 @@
   </div>
 
 </div>
+
+<!-- ====== TAG FILTER SCRIPT ====== -->
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const posts = document.querySelectorAll('.post-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tag = btn.dataset.tag;
+      posts.forEach(post => {
+        const tags = (post.dataset.tags || '').split(' ');
+        post.style.display = (tag === 'all' || tags.includes(tag)) ? '' : 'none';
+      });
+    });
+  });
+</script>
 
 </body>
 </html>
